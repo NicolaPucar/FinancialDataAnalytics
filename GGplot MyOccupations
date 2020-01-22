@@ -1,0 +1,45 @@
+library(ggplot2)
+library(dplyr)
+
+# create data
+time <- as.numeric(rep(seq(2.5,25,2.5),each=6))  # x Axis
+#value <- runif(49, 10, 100)               # y Axis
+
+
+#filling the activities with my personal information
+Sleep<-     c(	14.4,	7.2,	7.2,	7.2,	7.2	,7.2	,7.2,	6	,4.8,	3.6)
+FreeTime<  -c(	9.6,	16.8,	9.6	,9.6,	7.2	,7.2,	6	,4.8,	3.6	,1.2)
+School<-    c(	0,	0,	7.2, 7.2	,7.2,	7.2	,7.2,	7.2	,9.6,	10.8)
+Sport<-     c(	0,	0,	0,   0,	2.4,	2.4,	3.6	,3.6,	0,	0)
+Work<-      c(	0,	0,	0,	 0,	0,	0,	0,	1.2,	2.4	,4.8)
+Girlfriend<-c(	0,	0,	0,	 0	,0,	0	,0	,1.2,	3.6	,3.6)
+
+
+#value<- c(	14.4,	7.2,	7.2,	7.2,	7.2	,7.2	,7.2,	6	,4.8,	3.6,9.6,	16.8,	9.6	,9.6,	7.2	,7.2,	6	,4.8,	3.6	,1.2,0,	0,	7.2,	7.2	,7.2,	7.2	,7.2,	7.2	,9.6,	10.8,0,	0,	0,0,	2.4,	2.4,	3.6	,3.6,	0,	0,0,	0,	0,	0,	0,	0,	0,	1.2,	2.4	,4.8,	0,	0,	0,	0	,0,	0	,0	,1.2,	3.6	,3.6)
+
+#the activities needed to be joined in one only line
+value<-c(14.4,9.6,0,0,0,0,7.2,16.8,0,0,0,0,7.2,16.8,0,0,0,0,7.2,9.6,7.2,0,0,0,7.2,7.2,7.2,2.4,0,0,7.2,7.2,7.2,2.4,0,0,7.2,6,7.2,3.6,0,0,6,4.8,7.2,3.6,1.2,1.2,4.8,3.6,9.6,1,1.9,3.1,3.6,1.2,10.8,1,4.3,3.1)
+group <- c('Sleep','Free Time', 'School','Sport', 'Work', 'Girl Relation')# group, one shape per group
+
+#create the final database
+data <- data.frame(time, value, group)
+
+
+# stacked area chart
+ggplot(data, aes(x=time, y=value, fill=group)) + geom_area(alpha=0.7 , size=0.4, colour="black")+
+  scale_x_continuous(name="Years Old", limits=c(0, 30))+
+  scale_y_continuous(name="Hours/ Day", limits=c(0, 30))+
+  theme_classic() +
+  ggtitle("My life segmented by occupations",
+          subtitle = "nicola.pucar@usi.ch")+
+  xlab("Years Old")+                              
+  ylab("Hours/ Day") +
+  scale_fill_manual(values=c("#2407f5", "#f54aed", "#d95f02",'#464f75','#13e62f','#e41a1c'))+
+  scale_y_discrete(limit = c(6,12,18,24))+
+  scale_x_discrete(limit = c(0,5,10,15,20,25))+
+  guides(fill = guide_legend(title = "Occupations"))
+
+
+
+
+

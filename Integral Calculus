@@ -1,4 +1,4 @@
-#nicola.pucar@usi.ch, 2020-01-15"
+#nicola.pucar@usi.ch, 05-Jan-2020"
 #Shiny program to visualize how integrals are approximated with bars under a defined functions
 
 library('ggplot2')
@@ -8,7 +8,7 @@ opt <- animationOptions(interval = 300, loop = FALSE, playButton = NULL, pauseBu
 # Define the UI
 ui <- fluidPage(
   titlePanel("Integral Calculus"),
-  p("nicola.pucar@usi.ch, 2020-01-15"),
+  p("nicola.pucar@usi.ch, 05-Jan-2020"),
   helpText("Calculating the area under some functions using the Riemann sum approximation"),
   selectInput("select", h3("Select function"), c("sin(x)" = 1, "e^x" = 2, "log(x)" = 3, '1/x' = 4), selected = 1, selectize = TRUE),
   sliderInput('n', label = h3('Number of bars'), 10,5000,1,animate=opt, step=5),

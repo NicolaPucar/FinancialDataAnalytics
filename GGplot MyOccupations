@@ -8,7 +8,7 @@ time <- as.numeric(rep(seq(2.5,25,2.5),each=6))  # x Axis
 
 #filling the activities with my personal information
 Sleep<-     c(	14.4,	7.2,	7.2,	7.2,	7.2	,7.2	,7.2,	6	,4.8,	3.6)
-FreeTime<  -c(	9.6,	16.8,	9.6	,9.6,	7.2	,7.2,	6	,4.8,	3.6	,1.2)
+FreeTime<-  c(	9.6,	16.8,	9.6	,9.6,	7.2	,7.2,	6	,4.8,	3.6	,1.2)
 School<-    c(	0,	0,	7.2, 7.2	,7.2,	7.2	,7.2,	7.2	,9.6,	10.8)
 Sport<-     c(	0,	0,	0,   0,	2.4,	2.4,	3.6	,3.6,	0,	0)
 Work<-      c(	0,	0,	0,	 0,	0,	0,	0,	1.2,	2.4	,4.8)

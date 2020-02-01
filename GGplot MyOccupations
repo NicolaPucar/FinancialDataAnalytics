@@ -1,3 +1,5 @@
+#nicola.pucar@usi.ch, 2020-01-18"
+#ggplot visualization of the author's personal life by occupations
 library(ggplot2)
 library(dplyr)
 

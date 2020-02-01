@@ -1,0 +1,128 @@
+#nicola.pucar@usi.ch, 2020-01-15"
+#Shiny program to visualize how integrals are approximated with bars under a defined functions
+
+library('ggplot2')
+library('shiny')
+opt <- animationOptions(interval = 300, loop = FALSE, playButton = NULL, pauseButton = NULL)
+
+# Define the UI
+ui <- fluidPage(
+  titlePanel("Integral Calculus"),
+  p("nicola.pucar@usi.ch, 2019-12-12"),
+  helpText("Calculating the area under some functions using the Riemann sum approximation"),
+  selectInput("select", h3("Select function"), c("sin(x)" = 1, "e^x" = 2, "log(x)" = 3, '1/x' = 4), selected = 1, selectize = TRUE),
+  sliderInput('n', label = h3('Number of bars'), 10,5000,1,animate=opt, step=5),
+  # Copy the line below to make a slider range 
+  sliderInput("x1", label = h3("Range"), min = -5, max = 15, value = c(5, 10)),
+  mainPanel(
+    textOutput('Area'),
+    plotOutput('plot')
+  
+)
+)
+
+
+
+
+# Define the server code
+server <- function(input, output) {
+  
+  #defined function we want to calculate the integral
+  
+  ff<- function(x){
+    if (input$select == 1) {
+      result<-sin(x)
+      return(result)
+      
+    } else if (input$select == 2 ) {
+      result<-exp(1)^(x)
+      return(result)
+      
+    } else if (input$select == 3){
+      result<-log(x)
+      return(result)
+    }else if (input$select == 4){
+      result<-1/x
+      return(result)
+    }
+  }
+  
+  
+  
+  output$plot <- renderPlot({
+    #functions available to test for the integrals
+    
+    
+
+    #inputs for the users
+    x1<- input$x1[1]
+    x2<-input$x1[2]
+    bars<-input$n
+    distance<-(x2-x1)/bars
+    #d
+    x<-vector()
+    
+    #create a vector x with its x cooordinate ( x coordinate of the colums)
+    for (i in 0:bars) {
+      x[i+1]<-(x1+(i*distance))
+    }
+    #x
+    #create vector a : the hight of each column
+    a<-NULL
+    
+    for (i in 1:bars) {
+      a[i]<- x[i]
+    }
+    
+    #compute the area for every column
+    A<-NULL
+    for (i in 1:bars) {
+      A[i]<-(ff(x[i]))*abs((x[i+1]-x[i]))
+    }
+    #the approximated area under the function:
+    TotArea<-sum(A)
+    Area<- round(TotArea, digits = 5)
+    #create an output for the estimated Area value
+    output$Area<- renderText(c('Approximated area:', Area))
+    
+
+    #create dataframe for the barchart
+    Bc <- data.frame(dose=a, len=ff(a))
+
+
+    
+    #create dataframe for the function
+    l<-seq(from=x1-0.6,to=x2+0.6,length.out = 1000)
+    Fnc<- data.frame(dose=l,len=ff(l))
+    #head(Fnc)
+    #tail(Fnc)
+    
+    
+    #ggplot(data=Fnc, aes(x=dose, y=len)) + geom_line(stat="identity",color="red")
+    #geom_line(data=Fnc, aes(x=dose, y=len), stat="identity",color="red",size=1)
+    
+    ggplot(data=Bc, aes(x=dose, y=len)) + geom_bar(stat="identity",fill='steelblue') +
+      geom_line(data=Fnc, aes(x=dose, y=len), stat="identity",color="red",size=1)+
+      scale_x_continuous(name="X-Axis")+
+      scale_y_continuous(name="Y-Axis")
+  })
+
+}
+
+# Return a Shiny app object
+shinyApp(ui = ui, server = server)
+
+
+ #comments and things to do!
+
+#is needed to display in the shiny app also the valued of the variable ''Area'' and also calculate and display 
+#the true value of the integral in the defined interval
+
+# the function rapresentation with the red line should touch the and of the graph and not finish before
+
+
+#implement lower and upper limit in a single slider in order to avoid the 2 limits overlapping and surpassing
+
+#illustrate in a more precise manner the upper/lower limit when few bars are choosen. 
+
+

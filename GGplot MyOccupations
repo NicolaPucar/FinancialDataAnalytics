@@ -1,7 +1,6 @@
 #nicola.pucar@usi.ch, 2020-01-18"
 #ggplot visualization of the author's personal life by occupations
 library(ggplot2)
-library(dplyr)
 
 # create data
 time <- as.numeric(rep(seq(2.5,25,2.5),each=6))  # x Axis

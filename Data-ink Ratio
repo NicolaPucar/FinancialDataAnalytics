@@ -1,0 +1,21 @@
+#nicola.pucar@usi.ch, 13-Jan-2020"
+#creating a graph which maximizes the Tufte's data ink ratio:
+#plot of the key rates of the FED from 2000 to 2019
+rm(list = ls())
+graphics.off()
+#create vector of the observation's years
+x<- 2000:2019
+#create a vector with the key rates of the US Federal Reserve Bank
+y<- c(0.065,0.035,0.0175,0.01,0.0175,0.035,0.0525,0.0475,0.015,0,0,0,0,0,0,0,0.005,0.01,0.0175,0.02)
+
+pdf(width=10, height=6)
+#plot the graph maximizing the Tufte's ink-data ratio
+
+plot(y ~ x, axes=F, xlab="", ylab="", pch=16, type="p")
+
+axis(1, at=x, label=x, tick=F, family="serif")
+axis(2, at=y, label=y, tick=F, las=3, family="serif")
+text(max(x), max(y),"US Federal Reserve Bank Key Rate", adj=1, family="serif")
+
+
+
